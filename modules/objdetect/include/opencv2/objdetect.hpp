@@ -113,6 +113,30 @@ typedef struct CvHaarClassifierCascade CvHaarClassifierCascade;
 namespace cv
 {
 
+// DATAMATRIX
+// (changes from https://github.com/kipr/opencv/blob/31450d613c0c091c6ad510cf2a42a25edbe01e62/modules/objdetect/include/opencv2/objdetect/objdetect.hpp)
+CV_EXPORTS_W void findDataMatrix(InputArray image,
+                                 CV_OUT vector<string>& codes,
+                                 OutputArray corners=noArray(),
+                                 OutputArrayOfArrays dmtx=noArray());
+CV_EXPORTS_W void drawDataMatrixCodes(InputOutputArray image,
+                                      const vector<string>& codes,
+                                      InputArray corners);
+}
+
+/****************************************************************************************\
+*                                Datamatrix                                              *
+\****************************************************************************************/
+
+struct CV_EXPORTS CvDataMatrixCode {
+  char msg[4];
+  CvMat *original;
+  CvMat *corners;
+};
+
+CV_EXPORTS std::deque<CvDataMatrixCode> cvFindDataMatrix(CvMat *im);
+
+
 //! @addtogroup objdetect_common
 //! @{
 
